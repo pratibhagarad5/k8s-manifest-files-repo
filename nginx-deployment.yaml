@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginxwebappdeployment
+spec:
+  replicas: 1
+  strategy:
+     type: Recreate
+  selector:
+     matchLabels:
+        app: nginxwebapp
+  template:
+     metadata:
+        name: nginxpod
+        labels:
+          app: nginxwebapp
+     spec:
+        containers: 
+          - name: nginxcontainer
+            image: nginx:latest
+            ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginxsvc
+spec:
+  type: NodePort
+  selector:
+   app: nginxweapp
+  ports:
+   - port: 90
+     targetPort: 80
+     nodePort: 30003
+...
+

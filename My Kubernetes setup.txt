@@ -1,0 +1,42 @@
+My Kubernetes setup
+============================
+
+Launch 2 ec2 instances (worker nodes)
+
+1.t2.micro
+2.ubuntu 22.04 LTS (jammy)
+3.SG - ALL TCL - 0.0.0.0/0 (anywhere)\
+       SSH - anywhere
+       443 - anywhere
+
+4. https://github.com/techarkit/DevOps/blob/main/Kubernetes/kubeadm-cluster.md install all these cmds
+
+Master node
+
+Launch 1 t2.medium node.
+
+
+followed below cmds from ashok IT k8s setup
+
+On the master node
+============================
+
+# Install the Calico Network Add-On -
+
+# On the Control Plane Node, install Calico Networking:
+
+$ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+
+$ kubectl get nodes
+
+
+Join the Worker Nodes to the Cluster
+===========================================
+
+In the Control Plane Node, create the token and copy the kubeadm join command (NOTE:The join command can also be found in the output from kubeadm init command):
+
+$ kubeadm token create --print-join-command
+
+Note : In both Worker Nodes, paste the kubeadm join command to join the cluster. Use sudo to run it as root:
+
+sudo kubeadm join ...

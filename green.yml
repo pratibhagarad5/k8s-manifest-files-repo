@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-deployment-green-env
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: k8s-python-app
+      version: v2
+      color: green
+  template:
+    metadata:
+      labels:
+        app: k8s-python-app
+        version: v2
+        color: green
+    spec:
+      containers:
+      - name: k8s-python-app
+        image: python:latest
+        imagePullPolicy: Always
+        ports:
+         - containerPort: 80
+...                        
